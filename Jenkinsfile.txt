@@ -1,0 +1,36 @@
+pipeline {
+agent any
+environment {
+REMOTE = "ec2-user@${env.DEPLOY_HOST}"
+SSH_KEY = credentials('ec2-ssh-key') // configure in Jenkins credentials
+}
+
+
+stages {
+stage('Checkout') {
+steps {
+checkout scm
+}
+}
+
+
+stage('Build Docker Image') {
+steps {
+sh 'docker build -t forestfire:latest .'
+}
+}
+
+
+stage('Push/Deploy') {
+steps {
+script {
+// For demo: we'll SSH into the EC2 and run docker commands
+def remote = "${env.DEPLOY_HOST}"
+sh "ssh -o StrictHostKeyChecking=no -i ${SSH_KEY} ec2-user@${remote} 'docker pull || true'"
+// Copy image by building on remote or optionally use docker save+scp. Here we trigger remote git pull & docker build via SSH:
+sh "ssh -o StrictHostKeyChecking=no -i ${SSH_KEY} ec2-user@${remote} 'cd ~/ForestFire || git clone https://github.com/<YOUR_GITHUB_USERNAME>/<YOUR_REPO>.git ~/ForestFire; cd ~/ForestFire; git pull; docker build -t forestfire:latest .; docker rm -f forestfire_app || true; docker run -d --name forestfire_app -p 5000:5000 --restart unless-stopped forestfire:latest'"
+}
+}
+}
+}
+}
