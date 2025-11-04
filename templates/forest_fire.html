@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forest Fire Prevention System</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #2196f3;
+            --secondary-color: #ff9800;
+            --accent-color: #4CAF50;
+            --background-color: #f5f7fa;
+            --text-color: #2c3e50;
+            --white: #ffffff;
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --gray-300: #dee2e6;
+            --shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1.25rem;
+            gap: 0.5rem;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            padding-top: 80px;
+            min-height: calc(100vh - 80px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #64b5f6 100%);
+            padding: 4rem 0;
+            color: var(--white);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        /* Form Styles */
+        .prediction-card {
+            background: var(--white);
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            margin: -2rem auto 2rem;
+            max-width: 800px;
+            width: 90%;
+        }
+
+        .input-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group label {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .input-group input {
+            padding: 0.75rem;
+            border: 2px solid var(--gray-200);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .submit-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0 auto;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+        }
+
+        /* Result Display */
+        .prediction-result {
+            margin-top: 2rem;
+            padding: 1rem;
+            border-radius: 8px;
+            background-color: var(--gray-100);
+            text-align: center;
+            font-weight: 500;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 2rem 0;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 2rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 3rem 0;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .prediction-card {
+                padding: 1.5rem;
+                margin-top: -1rem;
+            }
+
+            .input-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="/" class="logo">
+                <i class="material-icons">local_fire_department</i>
+                <span>FirePredict</span>
+            </a>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <section class="hero">
+            <div class="container">
+                <h1>Forest Fire Prevention System</h1>
+                <p>Predict forest fire probability using environmental factors</p>
+            </div>
+        </section>
+
+        <div class="prediction-card">
+            <form action="/predict" method="post" id="predictionForm">
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label for="temperature">Temperature (°C)</label>
+                        <input
+                            type="number"
+                            id="temperature"
+                            name="Temperature"
+                            placeholder="Enter temperature"
+                            required
+                            step="0.01"
+                        >
+                    </div>
+
+                    <div class="input-group">
+                        <label for="oxygen">Oxygen (ppm)</label>
+                        <input
+                            type="number"
+                            id="oxygen"
+                            name="Oxygen"
+                            placeholder="Enter oxygen level"
+                            required
+                            step="0.01"
+                        >
+                    </div>
+
+                    <div class="input-group">
+                        <label for="humidity">Humidity (%)</label>
+                        <input
+                            type="number"
+                            id="humidity"
+                            name="Humidity"
+                            placeholder="Enter humidity"
+                            required
+                            step="0.01"
+                        >
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    <i class="material-icons">analytics</i>
+                    Predict Probability
+                </button>
+            </form>
+
+            {% if pred %}
+            <div class="prediction-result">
+                {{ pred }}
+            </div>
+            {% endif %}
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <h3>About FirePredict</h3>
+                    <p>An advanced system designed to predict and prevent forest fires using environmental data analysis and machine learning.</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 FirePredict. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('predictionForm');
+
+            form.addEventListener('submit', function(e) {
+                const temperature = parseFloat(document.getElementById('temperature').value);
+                const oxygen = parseFloat(document.getElementById('oxygen').value);
+                const humidity = parseFloat(document.getElementById('humidity').value);
+
+                if (temperature < -50 || temperature > 60) {
+                    e.preventDefault();
+                    alert('Please enter a valid temperature between -50°C and 60°C');
+                }
+
+                if (oxygen < 0 || oxygen > 1000000) {
+                    e.preventDefault();
+                    alert('Please enter a valid oxygen level (0-1000000 ppm)');
+                }
+
+                if (humidity < 0 || humidity > 100) {
+                    e.preventDefault();
+                    alert('Please enter a valid humidity percentage (0-100%)');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
