@@ -1,19 +1,18 @@
-FROM python:3.9
+FROM python:3.9-slim
 
-# Use official Python image as base
-FROM python:3.9
 
-# Set working directory inside the container
 WORKDIR /app
 
-# Copy application files into the container
-COPY . /app
 
-# Install dependencies
+# Copy files first to leverage Docker cache
+COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose the required port
+
+COPY . /app
+
+
 EXPOSE 5000
 
-# Run the application
+
 CMD ["python", "app.py"]
